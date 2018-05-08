@@ -5,7 +5,7 @@ SELECT DATE_FORMAT(SYSDATE(), 'Emmanuel %Y-%m-%d');
 VALUES (value1, value2, value3, ...);*/
 
 INSERT INTO USERS (email, display_name, password, fecha)
-VALUES ('user@dominio', 'user_1', MD5('adasdqwe13243qewr'), SYSDATE());
+VALUES ('user@dominio', 'admin', MD5('admin123'), SYSDATE());
 commit;
 --UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition; 
 select * from USERS;
