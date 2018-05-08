@@ -1,0 +1,3 @@
+--Data Application
+USE STOCK_MARKET_BBDD;
+INSERT ROL(descripcion) VALUES('ADMINISTRADOR');
