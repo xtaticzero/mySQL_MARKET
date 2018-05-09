@@ -11,7 +11,28 @@ commit;
 select * from USERS;
 select * from USERS_HISTORY;
 UPDATE USERS SET display_name = 'user_4_tmp' WHERE user_id = 1;
+UPDATE USERS SET fechaTermino = SYSDATE() WHERE user_id = ?;
+
 SELECT DATE_FORMAT((select fecha_movimiento from USERS_HISTORY where user_id = 1), 'Emmanuel %Y-%m-%d');
 
 select *,DATE_FORMAT(fecha_movimiento, '%Y-%m-%d') AS niceDate  from USERS_HISTORY where user_id = 1;
 SELECT DATE_FORMAT(fecha_movimiento, '%Y-%m-%d  %H:%i:%s') AS 'NAME' from USERS_HISTORY where user_id = 1;
+
+select 
+USR.user_id,
+USR.email,
+USR.display_name,
+USR.password,
+USR.fecha,
+USR.fechaTermino,
+USR.rol_id,
+ROL.descripcion
+from USERS USR
+inner join ROL on USR.rol_id = ROL.rol_id
+where 
+USR.display_name = 'admin'
+and 
+USR.password = MD5('admin123');
+
+
+

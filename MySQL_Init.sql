@@ -12,6 +12,7 @@ CREATE TABLE STOCK_MARKET_BBDD.USERS (
   display_name VARCHAR(50) NOT NULL,
   password CHAR(41) NOT NULL,
   fecha DATETIME NOT NULL,
+  fechaTermino DATETIME,
   rol_id INT NOT NULL,
   PRIMARY KEY (user_id),
   UNIQUE INDEX (email)
