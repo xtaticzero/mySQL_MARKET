@@ -83,7 +83,7 @@ CREATE TABLE STOCK_MARKET_BBDD.TRANSACCION (
   transaccion_id INT NOT NULL AUTO_INCREMENT,
   capa_id INT NOT NULL,
   movimiento_id INT NOT NULL,
-  fechaMovimiento DATETIME NOT NULL,
+  fechaTransaccion DATETIME NOT NULL,
   importe DOUBLE NOT NULL,
   costo DOUBLE NOT NULL,
   utilidad DOUBLE NOT NULL,
