@@ -24,3 +24,18 @@ INSERT EMISORA(nombre,fechaEntrada) VALUES('GMEXICO',SYSDATE());
 INSERT EMISORA(nombre,fechaEntrada) VALUES('KIMBER',SYSDATE());
 INSERT EMISORA(nombre,fechaEntrada) VALUES('NAFTRAC',SYSDATE());
 INSERT EMISORA(nombre,fechaEntrada) VALUES('WALMEX',SYSDATE());
+
+--COSTOS VECTOR
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'ALFA'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'AMX'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'BIMBO'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'CEMEX'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'FEMSA'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'GENTERA'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'GFNORTE'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'GMEXICO'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'KIMBER'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'NAFTRAC'));
+INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(0.0,SYSDATE(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'WALMEX'));
+
+

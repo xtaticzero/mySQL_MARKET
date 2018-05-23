@@ -97,17 +97,17 @@ CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA (
   costo_al_dia DOUBLE NOT NULL,
   diaCotizacion DATETIME NOT NULL,
   fechaTermino DATETIME,
-  PRIMARY KEY (cotizacion_id),
-  capa_id INT NOT NULL
+  emisora_id INT NOT NULL,
+  PRIMARY KEY (cotizacion_id)  
 ) ENGINE=INNODB;
 
 CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (
   cotizacion_history_id INT NOT NULL AUTO_INCREMENT,
   costo_al_dia DOUBLE NOT NULL,
   diaCotizacion DATETIME NOT NULL,
-  PRIMARY KEY (cotizacion_history_id),
   cotizacion_id INT NOT NULL,
-  capa_id INT NOT NULL
+  emisora_id INT NOT NULL,
+  PRIMARY KEY (cotizacion_history_id)  
 ) ENGINE=INNODB;
 
 --Constraint DB
@@ -118,8 +118,8 @@ ALTER TABLE STOCK_MARKET_BBDD.TRANSACCION ADD CONSTRAINT fk_capaid_transaccion F
 ALTER TABLE STOCK_MARKET_BBDD.TRANSACCION ADD CONSTRAINT fk_movimientoid_transaccion FOREIGN KEY (movimiento_id) REFERENCES STOCK_MARKET_BBDD.MOVIMIENTO(movimiento_id);
 ALTER TABLE STOCK_MARKET_BBDD.CAPA_ACCION ADD CONSTRAINT fk_accionid_ca FOREIGN KEY (accion_id) REFERENCES STOCK_MARKET_BBDD.ACCION(accion_id);
 ALTER TABLE STOCK_MARKET_BBDD.CAPA_ACCION ADD CONSTRAINT fk_capaid_ca FOREIGN KEY (capa_id) REFERENCES STOCK_MARKET_BBDD.CAPA(capa_id);
-ALTER TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY ADD CONSTRAINT fk_cotizacion_id FOREIGN KEY (cotizacion_id) REFERENCES STOCK_MARKET_BBDD.COTIZACION_DIARIA(cotizacion_id);
-ALTER TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY ADD CONSTRAINT fk_cotizacion_capa FOREIGN KEY (capa_id) REFERENCES STOCK_MARKET_BBDD.COTIZACION_DIARIA(capa_id);
+ALTER TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY ADD CONSTRAINT fk_cot_id FOREIGN KEY (cotizacion_id) REFERENCES STOCK_MARKET_BBDD.COTIZACION_DIARIA(cotizacion_id);
+ALTER TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY ADD CONSTRAINT fk_cot_capa FOREIGN KEY (emisora_id) REFERENCES STOCK_MARKET_BBDD.EMISORA(emisora_id);
 
 --TRIGGERS
 USE STOCK_MARKET_BBDD;
@@ -136,9 +136,9 @@ END;
 CREATE TRIGGER `Trg_Cotizacion_Historico` AFTER UPDATE ON COTIZACION_DIARIA
 FOR EACH ROW
 BEGIN
-    IF (NEW.costo_al_dia != OLD.costo_al_dia || NEW.diaCotizacion != OLD.diaCotizacion || OLD.capa_id != NEW.capa_id) THEN
-    	INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, cotizacion_id,capa_id )
-	            VALUES (OLD.costo_al_dia,OLD.diaCotizacion,OLD.cotizacion_id,OLD.capa_id);
+    IF (NEW.costo_al_dia != OLD.costo_al_dia || NEW.diaCotizacion != OLD.diaCotizacion || OLD.emisora_id != NEW.emisora_id) THEN
+    	INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, cotizacion_id,emisora_id )
+	            VALUES (OLD.costo_al_dia,OLD.diaCotizacion,OLD.cotizacion_id,OLD.emisora_id);
     END IF;
 END;
 
