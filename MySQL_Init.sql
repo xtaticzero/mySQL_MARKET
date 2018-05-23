@@ -119,6 +119,7 @@ ALTER TABLE STOCK_MARKET_BBDD.TRANSACCION ADD CONSTRAINT fk_movimientoid_transac
 ALTER TABLE STOCK_MARKET_BBDD.CAPA_ACCION ADD CONSTRAINT fk_accionid_ca FOREIGN KEY (accion_id) REFERENCES STOCK_MARKET_BBDD.ACCION(accion_id);
 ALTER TABLE STOCK_MARKET_BBDD.CAPA_ACCION ADD CONSTRAINT fk_capaid_ca FOREIGN KEY (capa_id) REFERENCES STOCK_MARKET_BBDD.CAPA(capa_id);
 ALTER TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY ADD CONSTRAINT fk_cotizacion_id FOREIGN KEY (cotizacion_id) REFERENCES STOCK_MARKET_BBDD.COTIZACION_DIARIA(cotizacion_id);
+ALTER TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY ADD CONSTRAINT fk_cotizacion_capa FOREIGN KEY (capa_id) REFERENCES STOCK_MARKET_BBDD.COTIZACION_DIARIA(capa_id);
 
 --TRIGGERS
 USE STOCK_MARKET_BBDD;
@@ -135,9 +136,9 @@ END;
 CREATE TRIGGER `Trg_Cotizacion_Historico` AFTER UPDATE ON COTIZACION_DIARIA
 FOR EACH ROW
 BEGIN
-    IF (NEW.costo_al_dia != OLD.costo_al_dia || NEW.diaCotizacion != OLD.diaCotizacion ) THEN
-    	INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, cotizacion_id )
-	            VALUES (OLD.costo_al_dia,OLD.diaCotizacion,OLD.cotizacion_id);
+    IF (NEW.costo_al_dia != OLD.costo_al_dia || NEW.diaCotizacion != OLD.diaCotizacion || OLD.capa_id != NEW.capa_id) THEN
+    	INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, cotizacion_id,capa_id )
+	            VALUES (OLD.costo_al_dia,OLD.diaCotizacion,OLD.cotizacion_id,OLD.capa_id);
     END IF;
 END;
 
