@@ -93,6 +93,22 @@ CREATE TABLE STOCK_MARKET_BBDD.CAPA_ACCION (
   PRIMARY KEY (ca_id)
 ) ENGINE=INNODB;
 
+CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA (
+  cotizacion_id INT NOT NULL AUTO_INCREMENT,
+  costo_al_dia DOUBLE NOT NULL,
+  diaCotizacion DATETIME NOT NULL,
+  fechaTermino DATETIME,
+  PRIMARY KEY (cotizacion_id)
+) ENGINE=INNODB;
+
+CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (
+  cotizacion_history_id INT NOT NULL AUTO_INCREMENT,
+  costo_al_dia DOUBLE NOT NULL,
+  diaCotizacion DATETIME NOT NULL,
+  PRIMARY KEY (cotizacion_history_id),
+  cotizacion_id INT NOT NULL  
+) ENGINE=INNODB;
+
 --Constraint DB
 ALTER TABLE STOCK_MARKET_BBDD.USERS_HISTORY ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES STOCK_MARKET_BBDD.USERS(user_id);
 ALTER TABLE STOCK_MARKET_BBDD.USERS ADD CONSTRAINT fk_rol_id FOREIGN KEY (rol_id) REFERENCES STOCK_MARKET_BBDD.ROL(rol_id);
@@ -101,16 +117,26 @@ ALTER TABLE STOCK_MARKET_BBDD.TRANSACCION ADD CONSTRAINT fk_capaid_transaccion F
 ALTER TABLE STOCK_MARKET_BBDD.TRANSACCION ADD CONSTRAINT fk_movimientoid_transaccion FOREIGN KEY (movimiento_id) REFERENCES STOCK_MARKET_BBDD.MOVIMIENTO(movimiento_id);
 ALTER TABLE STOCK_MARKET_BBDD.CAPA_ACCION ADD CONSTRAINT fk_accionid_ca FOREIGN KEY (accion_id) REFERENCES STOCK_MARKET_BBDD.ACCION(accion_id);
 ALTER TABLE STOCK_MARKET_BBDD.CAPA_ACCION ADD CONSTRAINT fk_capaid_ca FOREIGN KEY (capa_id) REFERENCES STOCK_MARKET_BBDD.CAPA(capa_id);
+ALTER TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY ADD CONSTRAINT fk_cotizacion_id FOREIGN KEY (cotizacion_id) REFERENCES STOCK_MARKET_BBDD.COTIZACION_DIARIA(cotizacion_id);
 
 --TRIGGERS
 USE STOCK_MARKET_BBDD;
-
+--history user
 CREATE TRIGGER `Trg_Users_Historico` AFTER UPDATE ON USERS
 FOR EACH ROW
 BEGIN
     IF (NEW.email != OLD.email || NEW.display_name != OLD.display_name || NEW.password != OLD.password || NEW.user_id != OLD.user_id) THEN
     	INSERT INTO STOCK_MARKET_BBDD.USERS_HISTORY (email, display_name, password, fecha_movimiento,user_id )
 	            VALUES (OLD.email,OLD.display_name,OLD.password,CURRENT_TIMESTAMP(), OLD.user_id);
+    END IF;
+END;
+--history cotizacion
+CREATE TRIGGER `Trg_Cotizacion_Historico` AFTER UPDATE ON COTIZACION_DIARIA
+FOR EACH ROW
+BEGIN
+    IF (NEW.costo_al_dia != OLD.costo_al_dia || NEW.diaCotizacion != OLD.diaCotizacion ) THEN
+    	INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, cotizacion_id )
+	            VALUES (OLD.costo_al_dia,OLD.diaCotizacion,OLD.cotizacion_id);
     END IF;
 END;
 
