@@ -98,7 +98,8 @@ CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA (
   costo_al_dia DOUBLE NOT NULL,
   diaCotizacion DATETIME NOT NULL,
   fechaTermino DATETIME,
-  PRIMARY KEY (cotizacion_id)
+  PRIMARY KEY (cotizacion_id),
+  capa_id INT NOT NULL
 ) ENGINE=INNODB;
 
 CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (
@@ -106,7 +107,8 @@ CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (
   costo_al_dia DOUBLE NOT NULL,
   diaCotizacion DATETIME NOT NULL,
   PRIMARY KEY (cotizacion_history_id),
-  cotizacion_id INT NOT NULL  
+  cotizacion_id INT NOT NULL,
+  capa_id INT NOT NULL
 ) ENGINE=INNODB;
 
 --Constraint DB
