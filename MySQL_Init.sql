@@ -132,6 +132,8 @@ BEGIN
 	            VALUES (OLD.email,OLD.display_name,OLD.password,CURRENT_TIMESTAMP(), OLD.user_id);
     END IF;
 END;
+--
+USE STOCK_MARKET_BBDD;
 --history cotizacion
 CREATE TRIGGER `Trg_Cotizacion_Historico` AFTER UPDATE ON COTIZACION_DIARIA
 FOR EACH ROW
