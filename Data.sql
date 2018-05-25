@@ -38,4 +38,7 @@ INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(1.0,NOW()
 INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(1.0,NOW(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'NAFTRAC'));
 INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(1.0,NOW(),(SELECT EMI.emisora_id FROM EMISORA EMI WHERE nombre = 'WALMEX'));
 
-
+--MOVIMIENTOS
+INSERT MOVIMIENTO(descripcion) VALUES('COMPRA');
+INSERT MOVIMIENTO(descripcion) VALUES('VENTA');
+                                                                                  
