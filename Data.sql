@@ -10,7 +10,7 @@ VALUES ('user@dominio.com', 'admin', MD5('admin123'), 1,NOW());
 INSERT INTO USERS (email, display_name, password, rol_id,fecha)
 VALUES ('operador@dominio.com', 'operador', MD5('operador123'), 1,NOW());
 --COMISIONES DEL APLICATIVO
-INSERT INTO COMISIONES(PORCENTAJE,DESCRIPCION) VALUES(1.00174,"Comisiones Casas de bolsa");
+INSERT INTO COMISIONES(PORCENTAJE,DESCRIPCION) VALUES(0.00174,"Comisiones Casas de bolsa");
 
 --EMISORAS
 INSERT EMISORA(nombre,fechaEntrada) VALUES('ALFA',NOW());
