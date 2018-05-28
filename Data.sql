@@ -42,3 +42,6 @@ INSERT COTIZACION_DIARIA(costo_al_dia,diaCotizacion,emisora_id) VALUES(1.0,NOW()
 INSERT MOVIMIENTO(descripcion) VALUES('COMPRA');
 INSERT MOVIMIENTO(descripcion) VALUES('VENTA');
                                                                                   
+--CAPITAL
+INSERT INTO CAPITAL (montoEntrada, montoSalida, diaMovimiento) VALUES (1500,0,sysdate());
+                                                                                  
