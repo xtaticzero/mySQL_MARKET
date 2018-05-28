@@ -131,7 +131,7 @@ ALTER TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY ADD CONSTRAINT fk_cot_ca
 --TRIGGERS
 USE STOCK_MARKET_BBDD;
 --history user
-CREATE TRIGGER `Trg_Users_Historico` AFTER UPDATE ON USERS
+CREATE TRIGGER `Trg_Users_Historico` AFTER UPDATE ON STOCK_MARKET_BBDD.USERS
 FOR EACH ROW
 BEGIN
     IF (NEW.email != OLD.email || NEW.display_name != OLD.display_name || NEW.password != OLD.password || NEW.user_id != OLD.user_id) THEN
@@ -142,12 +142,12 @@ END;
 --
 USE STOCK_MARKET_BBDD;
 --history cotizacion
-CREATE TRIGGER `Trg_Cotizacion_Historico` AFTER UPDATE ON COTIZACION_DIARIA
+CREATE TRIGGER `Trg_Cotizacion_Historico` AFTER UPDATE ON STOCK_MARKET_BBDD.COTIZACION_DIARIA
 FOR EACH ROW
 BEGIN
-    IF (NEW.costo_al_dia != OLD.costo_al_dia || NEW.diaCotizacion != OLD.diaCotizacion || OLD.emisora_id != NEW.emisora_id) THEN
-    	INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, cotizacion_id,emisora_id )
-	            VALUES (OLD.costo_al_dia,(SELECT diaCotizacion FROM COTIZACION_DIARIA WHERE cotizacion_id = OLD.cotizacion_id AND emisora_id = OLD.emisora_id),OLD.cotizacion_id,OLD.emisora_id);
+    IF NEW.costo_al_dia <> OLD.costo_al_dia || NEW.diaCotizacion <> OLD.diaCotizacion THEN  
+            INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, cotizacion_id,emisora_id ) 
+            VALUES( OLD.costo_al_dia, OLD.diaCotizacion, OLD.cotizacion_id, OLD.emisora_id );
     END IF;
 END;
 
