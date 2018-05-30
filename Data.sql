@@ -44,4 +44,9 @@ INSERT MOVIMIENTO(descripcion) VALUES('VENTA');
                                                                                   
 --CAPITAL
 INSERT INTO CAPITAL (montoEntrada, montoSalida, diaMovimiento) VALUES (1500,0,sysdate());
+
+--INDICE IPC
+INSERT INTO STOCK_MARKET_BBDD.INDICE_COTIZACION (volorIPC, porcentajeCotizacion, diaMovimiento )
+VALUES(49354.42,0.010079010370853,'2017-12-29');
+
                                                                                   

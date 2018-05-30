@@ -41,3 +41,31 @@ SELECT * FROM COTIZACION_DIARIA;
 
 UPDATE COTIZACION_DIARIA SET costo_al_dia = 7.0,diaCotizacion = SYSDATE()
 WHERE emisora_id = 1 AND COTIZACION_ID=1;
+
+--- COTIZACION POR DIA
+SELECT
+EMI.nombre,
+COT.costo_al_dia,
+COT_H.costo_al_dia
+FROM COTIZACION_DIARIA COT
+INNER JOIN EMISORA EMI ON COT.emisora_id = EMI.emisora_id
+LEFT JOIN COTIZACION_DIARIA_HISTORY COT_H ON COT.emisora_id = COT_H.emisora_id
+WHERE COT.emisora_id = 1
+AND
+DATE_FORMAT(? - INTERVAL 1 DAY, '%Y-%m-%d 00:00:00') 
+AND DATE_FORMAT(? - INTERVAL 1 DAY, '%Y-%m-%d 23:59:59') ORDER BY COT_H.diaCotizacion DESC LIMIT 1;
+
+--- COTIZACION POR AÑO
+SELECT
+EMI.nombre,
+COT.costo_al_dia,
+COT_H.costo_al_dia
+FROM COTIZACION_DIARIA COT
+INNER JOIN EMISORA EMI ON COT.emisora_id = EMI.emisora_id
+LEFT JOIN COTIZACION_DIARIA_HISTORY COT_H ON COT.emisora_id = COT_H.emisora_id
+WHERE COT.emisora_id = ?
+AND
+DATE_FORMAT(?, '%Y-%m-%d 00:00:00') 
+AND DATE_FORMAT(?, '%Y-%m-%d 23:59:59') ORDER BY COT_H.diaCotizacion ASC LIMIT 1;
+
+
