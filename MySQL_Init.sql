@@ -84,10 +84,11 @@ CREATE TABLE STOCK_MARKET_BBDD.TRANSACCION (
   ca_id INT NOT NULL,
   movimiento_id INT NOT NULL,
   fechaTransaccion DATETIME NOT NULL,
-  importe DOUBLE NOT NULL,
-  costo DOUBLE NOT NULL,
+  cantidad INT NOT NULL,
+  costoUnitario DOUBLE NOT NULL,
+  total DOUBLE NOT NULL,
   utilidad DOUBLE NOT NULL,
-  porcentaje_Movimiento DOUBLE NOT NULL,
+  porcentajeMovimiento DOUBLE NOT NULL,
   PRIMARY KEY (transaccion_id)
 ) ENGINE=INNODB;
 
