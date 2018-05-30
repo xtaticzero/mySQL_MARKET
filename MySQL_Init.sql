@@ -96,6 +96,7 @@ CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA (
   cotizacion_id INT NOT NULL AUTO_INCREMENT,
   costo_al_dia DOUBLE NOT NULL,
   diaCotizacion DATETIME NOT NULL,
+  indiceCotizacion DOUBLE,
   fecha_termino DATETIME,
   emisora_id INT NOT NULL,
   PRIMARY KEY (cotizacion_id)  
@@ -105,6 +106,7 @@ CREATE TABLE STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (
   cotizacion_history_id INT NOT NULL AUTO_INCREMENT,
   costo_al_dia DOUBLE NOT NULL,
   diaCotizacion DATETIME NOT NULL,
+  indiceCotizacion DOUBLE,
   cotizacion_id INT NOT NULL,
   emisora_id INT NOT NULL,
   PRIMARY KEY (cotizacion_history_id)  
@@ -151,12 +153,14 @@ END;
 --
 USE STOCK_MARKET_BBDD;
 --history cotizacion
+USE STOCK_MARKET_BBDD;
+--history cotizacion
 CREATE TRIGGER `Trg_Cotizacion_Historico` AFTER UPDATE ON STOCK_MARKET_BBDD.COTIZACION_DIARIA
 FOR EACH ROW
 BEGIN
     IF NEW.costo_al_dia <> OLD.costo_al_dia || NEW.diaCotizacion <> OLD.diaCotizacion THEN  
-            INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, cotizacion_id,emisora_id ) 
-            VALUES( OLD.costo_al_dia, OLD.diaCotizacion, OLD.cotizacion_id, OLD.emisora_id );
+            INSERT INTO STOCK_MARKET_BBDD.COTIZACION_DIARIA_HISTORY (costo_al_dia, diaCotizacion, indiceCotizacion,cotizacion_id,emisora_id ) 
+            VALUES( OLD.costo_al_dia, OLD.diaCotizacion, OLD.indiceCotizacion,OLD.cotizacion_id, OLD.emisora_id );
     END IF;
 END;
 
