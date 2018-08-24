@@ -150,10 +150,6 @@ BEGIN
 	            VALUES (OLD.email,OLD.display_name,OLD.password,CURRENT_TIMESTAMP(), OLD.user_id);
     END IF;
 END;
---
-USE STOCK_MARKET_BBDD;
---history cotizacion
-USE STOCK_MARKET_BBDD;
 --history cotizacion
 CREATE TRIGGER `Trg_Cotizacion_Historico` AFTER UPDATE ON STOCK_MARKET_BBDD.COTIZACION_DIARIA
 FOR EACH ROW
@@ -174,9 +170,11 @@ BEGIN
     DECLARE porcentage DOUBLE;
     
     (SELECT IND_COT.valorIPC INTO ipc_value FROM INDICE_COTIZACION IND_COT ORDER BY indiceCotizacion_id DESC LIMIT 1);
-    (SELECT ((NEW.valorIPC - ipc_value)/ipc_value) INTO porcentage);
     
-    SET new.porcentajeCotizacion = porcentage; 
+    IF(ipc_value IS NOT NUll ) THEN
+        SET NEW.porcentajeCotizacion = ((NEW.valorIPC - ipc_value)/ipc_value);
+    END IF;
+     
 END;
 
   
