@@ -122,7 +122,7 @@ CREATE TABLE STOCK_MARKET_BBDD.CAPITAL (
 
 CREATE TABLE STOCK_MARKET_BBDD.INDICE_COTIZACION (
   indiceCotizacion_id INT NOT NULL AUTO_INCREMENT,
-  volorIPC DOUBLE NOT NULL,
+  valorIPC DOUBLE NOT NULL,
   porcentajeCotizacion DOUBLE DEFAULT 0.0,
   diaMovimiento DATETIME NOT NULL,
   PRIMARY KEY (indiceCotizacion_id)  
@@ -173,11 +173,13 @@ BEGIN
     DECLARE ipc_value DOUBLE;
     DECLARE porcentage DOUBLE;
     
-    (SELECT IND_COT.volorIPC INTO ipc_value FROM INDICE_COTIZACION IND_COT ORDER BY indiceCotizacion_id DESC LIMIT 1);
-    (SELECT ((NEW.volorIPC-ipc_value)/ipc_value) INTO porcentage);
+    (SELECT IND_COT.valorIPC INTO ipc_value FROM INDICE_COTIZACION IND_COT ORDER BY indiceCotizacion_id DESC LIMIT 1);
+    (SELECT ((NEW.valorIPC - ipc_value)/ipc_value) INTO porcentage);
     
-    SET new.porcentajeCotizacion = porcentage;   
+    SET new.porcentajeCotizacion = porcentage; 
 END;
+
+  
 
 --ROLL BACK
 REVOKE ALL PRIVILEGES STOCK_MARKET_BBDD.* FROM 'user_market'@'localhost';
