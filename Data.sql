@@ -55,5 +55,11 @@ INSERT INTO CAPITAL (montoEntrada, montoSalida, diaMovimiento) VALUES (1500,0,sy
 --INDICE IPC
 INSERT INTO STOCK_MARKET_BBDD.INDICE_COTIZACION (valorIPC, porcentajeCotizacion, diaMovimiento )
 VALUES(49354.42,0.010079010370853,'2017-12-29');
+INSERT INTO STOCK_MARKET_BBDD.INDICE_COTIZACION (valorIPC, porcentajeCotizacion, diaMovimiento )
+VALUES(50033.95,0.010079010370853,'2018-01-02');
+INSERT INTO STOCK_MARKET_BBDD.INDICE_COTIZACION (valorIPC, porcentajeCotizacion, diaMovimiento )
+VALUES(49782.23,0.010079010370853,'2018-01-03');
+INSERT INTO STOCK_MARKET_BBDD.INDICE_COTIZACION (valorIPC, porcentajeCotizacion, diaMovimiento )
+VALUES(49744.62,0.010079010370853,'2018-01-04');
 
                                                                                   
