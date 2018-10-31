@@ -68,4 +68,32 @@ AND
 DATE_FORMAT(?, '%Y-%m-%d 00:00:00') 
 AND DATE_FORMAT(?, '%Y-%m-%d 23:59:59') ORDER BY COT_H.diaCotizacion ASC LIMIT 1;
 
+select * from COTIZACION_DIARIA_HISTORY;
+select * from COTIZACION_DIARIA;
+
+SELECT 
+COT_H.cotizacion_history_id,
+COT.cotizacion_id,
+COT_H.costo_al_dia,
+COT.costo_al_dia,
+COT_H.diaCotizacion,
+COT.diaCotizacion,
+COT.fecha_termino,
+EMI.emisora_id,
+EMI.nombre,
+EMI.fechaEntrada,
+EMI.fechaBaja
+FROM COTIZACION_DIARIA_HISTORY COT_H
+LEFT JOIN COTIZACION_DIARIA COT ON COT.cotizacion_id = COT_H.cotizacion_id
+INNER JOIN EMISORA EMI ON COT_H.emisora_id = EMI.emisora_id
+WHERE 1=1
+AND 
+EMI.emisora_id = 1
+AND
+(COT_H.diaCotizacion between  DATE_FORMAT((DATE_SUB(SYSDATE(), INTERVAL 1 YEAR) ) ,'%Y-01-01') AND SYSDATE() )
+ORDER BY COT_H.diaCotizacion DESC;
+
+
+
+
 
